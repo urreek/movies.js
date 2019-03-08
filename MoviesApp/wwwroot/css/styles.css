@@ -1,0 +1,124 @@
+﻿a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #091131;
+    z-index: 100;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+.navbar {
+    background-color: #fd7e14;
+}
+
+.cover {
+    object-fit: cover;
+}
+
+.carousel-inner {
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+.carousel-item {
+    height: 500px;
+}
+
+.carousel-item img {
+    height: 500px;
+}
+
+.dark-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.badge-primary {
+    background-color: #fd7e14;
+}
+
+.badge-secondary {
+    background-color: #dc3545;
+}
+
+.movieWrapper {
+    color: white;
+    position: relative;
+    cursor: pointer;
+    background-color: darkslategray;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    transition: transform ease-in-out 0.2s;
+}
+
+.movieWrapper__rating {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
+.movieWrapper__date {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.movieWrapper:hover {
+    transform: scale(1.1);
+}
+
+.movieWrapper > img {
+    width: 100%;
+}
