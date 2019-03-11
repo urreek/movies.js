@@ -13,7 +13,6 @@ const getUrlId = () => {
     let movieImage = document.createElement("img");
     movieImage.className = "rounded-lg box-shadow";
 
-    let movieInfo = document.getElementById("movie__info");
     let movieTitle = document.getElementById("movie__title");
     
     let movieRating = document.getElementById("movie__rating");
