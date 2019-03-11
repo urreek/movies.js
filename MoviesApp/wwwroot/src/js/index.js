@@ -1,15 +1,4 @@
-﻿const API_KEY = "b616193ba38eec32e0603fae57f97cbe";
-
-
-function getMovies(url) {
-    return fetch(url + '?api_key=' + API_KEY + '&region=US&with_release_type=2|3')
-        .then(res => {
-            return res.json();
-        })
-        .then(data => {
-            return data.results;
-        });
-}
+﻿import tmdb from './tmdb';
 
 function createMovieBlock(movie) {
     let col = document.createElement("div");
@@ -39,10 +28,10 @@ function createMovieBlock(movie) {
 
     return col;
 }
-getMovies("https://api.themoviedb.org/3/movie/now_playing")
+
+tmdb.getNowplayingMovies()
     .then(movies => {
         movies.slice(0, 12).map((movie, index) => {
-            console.log(movie);
             let carouselItem = document.createElement("div");
             carouselItem.classList.add("carousel-item");
             if (index == 0) {
@@ -73,7 +62,7 @@ getMovies("https://api.themoviedb.org/3/movie/now_playing")
     });
 
 
-getMovies("https://api.themoviedb.org/3/movie/popular")
+tmdb.getPopularMovies()
     .then(movies => {
         movies.slice(0, 12).map(movie => {
             let movieBlock = createMovieBlock(movie);
@@ -82,7 +71,7 @@ getMovies("https://api.themoviedb.org/3/movie/popular")
         });
     });
 
-getMovies("https://api.themoviedb.org/3/movie/upcoming")
+tmdb.getUpcomingMovies()
     .then(movies => {
         movies.slice(0, 12).map(movie => {
             let movieBlock = createMovieBlock(movie);

@@ -45,6 +45,7 @@ body {
     margin-bottom: 60px;
     background-color: #091131;
     z-index: 100;
+    color: #f8f9fa;
 }
 
 .footer {
@@ -74,7 +75,6 @@ body {
 }
 
 .carousel-item img {
-    height: 500px;
 }
 
 .dark-overlay {
@@ -94,6 +94,9 @@ body {
     background-color: #dc3545;
 }
 
+
+/* Grid movie wrapper
+--------------------------------------------*/
 .movieWrapper {
     color: white;
     position: relative;
@@ -121,4 +124,11 @@ body {
 
 .movieWrapper > img {
     width: 100%;
+}
+
+/* End of Grid movie wrapper
+-------------------------------------------*/
+
+#movie__poster {
+    text-align: center;
 }
