@@ -16,7 +16,7 @@ namespace MoviesApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvcCore()
+            services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -26,15 +26,14 @@ namespace MoviesApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
 
-
-            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc(
                 routes =>
                 {
-                    routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                    routes.MapRoute("default", "{controller=Movies}/{action=Index}/{id?}");
                 });
         }
     }

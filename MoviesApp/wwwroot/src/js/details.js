@@ -1,4 +1,4 @@
-import tmdb from "./tmdb";
+import tmdb from "./api/tmdb";
 
 
 const getUrlId = () => {
@@ -9,24 +9,33 @@ const getUrlId = () => {
 
 (function() {
     let id = getUrlId();
-    let moviePoster = document.getElementById("movie__poster");
-    let movieImage = document.createElement("img");
-    movieImage.className = "rounded-lg box-shadow";
 
-    let movieTitle = document.getElementById("movie__title");
+    let movieImage = document.getElementById("movie__image");
     
     let movieRating = document.getElementById("movie__rating");
+
+    let movieTitle = document.getElementById("movie__title");
+
+    let movieGenres = document.getElementById("movie__genres");
 
     let movieOverview = document.getElementById("movie__overview");
 
     tmdb.getMovie(id)
     .then(movie => {
         movieImage.src = "https://image.tmdb.org/t/p/w300" + movie.poster_path;
-        moviePoster.appendChild(movieImage);
+
+        movieRating.innerHTML = "<span class='badge badge-secondary box-shadow'>" + movie.vote_average.toFixed(1) + "</span>";
 
         movieTitle.innerHTML = movie.title + "<small class='text-muted'> (" + movie.release_date + ")</small>"
 
-        movieRating.innerHTML = "<i class='material-icons md-36'>star_border</i> <span class='badge badge-secondary box-shadow'>" + movie.vote_average.toFixed(1) + "</span>";
+        movie.genres.forEach(genre => {
+            console.log(genre);
+            let genreSpan = document.createElement("span");
+            genreSpan.className = "badge badge-secondary mr-2 box-shadow";
+            genreSpan.innerHTML = genre.name;
+            movieGenres.appendChild(genreSpan);
+        });
+
         movieOverview.innerHTML = movie.overview;
     });
 })();

@@ -1,4 +1,4 @@
-﻿import tmdb from './tmdb';
+﻿import tmdb from './api/tmdb';
 
 function createMovieBlock(movie) {
     let col = document.createElement("div");
@@ -31,7 +31,7 @@ function createMovieBlock(movie) {
 
 tmdb.getNowplayingMovies()
     .then(movies => {
-        movies.slice(0, 12).map((movie, index) => {
+        movies.map((movie, index) => {
             let carouselItem = document.createElement("div");
             carouselItem.classList.add("carousel-item");
             if (index == 0) {

@@ -10,12 +10,12 @@ namespace MoviesApp
     {
         public IActionResult Index()
         {
-            return File("~/index.html", "text/html");
+            return View();
         }
         [Route("Movies/{id}")]
         public IActionResult Details(int? id)
         {
-            return File("~/details.html", "text/html");
+            return View();
         }
     }
 }

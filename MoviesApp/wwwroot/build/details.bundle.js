@@ -86,58 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./wwwroot/src/js/details.js":
-/*!***********************************!*\
-  !*** ./wwwroot/src/js/details.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _tmdb = __webpack_require__(/*! ./tmdb */ "./wwwroot/src/js/tmdb.js");
-
-var _tmdb2 = _interopRequireDefault(_tmdb);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var getUrlId = function getUrlId() {
-    var url = window.location.href;
-    var id = url.substring(url.lastIndexOf('/') + 1);
-    return id;
-};
-
-(function () {
-    var id = getUrlId();
-    var moviePoster = document.getElementById("movie__poster");
-    var movieImage = document.createElement("img");
-    movieImage.className = "rounded-lg box-shadow";
-
-    var movieInfo = document.getElementById("movie__info");
-    var movieTitle = document.getElementById("movie__title");
-
-    var movieRating = document.getElementById("movie__rating");
-
-    var movieOverview = document.getElementById("movie__overview");
-
-    _tmdb2.default.getMovie(id).then(function (movie) {
-        movieImage.src = "https://image.tmdb.org/t/p/w300" + movie.poster_path;
-        moviePoster.appendChild(movieImage);
-
-        movieTitle.innerHTML = movie.title + "<small class='text-muted'> (" + movie.release_date + ")</small>";
-
-        movieRating.innerHTML = "<i class='material-icons md-36'>star_border</i> <span class='badge badge-secondary box-shadow'>" + movie.vote_average.toFixed(1) + "</span>";
-        movieOverview.innerHTML = movie.overview;
-    });
-})();
-
-/***/ }),
-
-/***/ "./wwwroot/src/js/tmdb.js":
-/*!********************************!*\
-  !*** ./wwwroot/src/js/tmdb.js ***!
-  \********************************/
+/***/ "./wwwroot/src/js/api/tmdb.js":
+/*!************************************!*\
+  !*** ./wwwroot/src/js/api/tmdb.js ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -183,6 +135,62 @@ var tmdb = function () {
 }();
 
 exports.default = tmdb;
+
+/***/ }),
+
+/***/ "./wwwroot/src/js/details.js":
+/*!***********************************!*\
+  !*** ./wwwroot/src/js/details.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _tmdb = __webpack_require__(/*! ./api/tmdb */ "./wwwroot/src/js/api/tmdb.js");
+
+var _tmdb2 = _interopRequireDefault(_tmdb);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var getUrlId = function getUrlId() {
+    var url = window.location.href;
+    var id = url.substring(url.lastIndexOf('/') + 1);
+    return id;
+};
+
+(function () {
+    var id = getUrlId();
+
+    var movieImage = document.getElementById("movie__image");
+
+    var movieRating = document.getElementById("movie__rating");
+
+    var movieTitle = document.getElementById("movie__title");
+
+    var movieGenres = document.getElementById("movie__genres");
+
+    var movieOverview = document.getElementById("movie__overview");
+
+    _tmdb2.default.getMovie(id).then(function (movie) {
+        movieImage.src = "https://image.tmdb.org/t/p/w300" + movie.poster_path;
+
+        movieRating.innerHTML = "<span class='badge badge-secondary box-shadow'>" + movie.vote_average.toFixed(1) + "</span>";
+
+        movieTitle.innerHTML = movie.title + "<small class='text-muted'> (" + movie.release_date + ")</small>";
+
+        movie.genres.forEach(function (genre) {
+            console.log(genre);
+            var genreSpan = document.createElement("span");
+            genreSpan.className = "badge badge-secondary mr-2 box-shadow";
+            genreSpan.innerHTML = genre.name;
+            movieGenres.appendChild(genreSpan);
+        });
+
+        movieOverview.innerHTML = movie.overview;
+    });
+})();
 
 /***/ })
 

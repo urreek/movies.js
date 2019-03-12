@@ -86,103 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./wwwroot/src/js/index.js":
-/*!*********************************!*\
-  !*** ./wwwroot/src/js/index.js ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _tmdb = __webpack_require__(/*! ./tmdb */ "./wwwroot/src/js/tmdb.js");
-
-var _tmdb2 = _interopRequireDefault(_tmdb);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function createMovieBlock(movie) {
-    var col = document.createElement("div");
-    col.className = "col-6 col-sm-2 mb-5";
-
-    var movieWrapper = document.createElement("div");
-    movieWrapper.className = "movieWrapper rounded";
-    var movieImage = document.createElement("img");
-    movieImage.className = "rounded";
-    movieImage.src = "https://image.tmdb.org/t/p/w185" + movie.poster_path;
-    movieWrapper.appendChild(movieImage);
-
-    var movieRating = document.createElement("div");
-    movieRating.className = "movieWrapper__rating";
-    movieRating.innerHTML = '<span class="badge badge-secondary box-shadow">' + movie.vote_average.toFixed(1) + '</span>';
-    movieWrapper.append(movieRating);
-
-    var movieDate = document.createElement("div");
-    movieDate.className = "movieWrapper__date";
-    movieDate.innerHTML = '<span class="badge badge-secondary box-shadow">' + movie.release_date + '</span>';
-    movieWrapper.append(movieDate);
-
-    var link = document.createElement("a");
-    link.href = "/movies/" + movie.id;
-    link.appendChild(movieWrapper);
-    col.appendChild(link);
-
-    return col;
-}
-
-_tmdb2.default.getNowplayingMovies().then(function (movies) {
-    movies.slice(0, 12).map(function (movie, index) {
-        var carouselItem = document.createElement("div");
-        carouselItem.classList.add("carousel-item");
-        if (index == 0) {
-            carouselItem.classList.add("active");
-        }
-        var movieImage = document.createElement("img");
-        movieImage.className = "d-block w-100";
-        movieImage.src = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
-        carouselItem.appendChild(movieImage);
-
-        var overlay = document.createElement("div");
-        overlay.className = "dark-overlay";
-        carouselItem.append(overlay);
-
-        var carouselCaption = document.createElement("div");
-        carouselCaption.className = "carousel-caption d-none d-md-block";
-        var movieTitle = document.createElement("h5");
-        movieTitle.innerHTML = movie.title;
-        var movieOverview = document.createElement("p");
-        movieOverview.innerHTML = movie.overview;
-        carouselCaption.appendChild(movieTitle);
-        carouselCaption.appendChild(movieOverview);
-        carouselItem.appendChild(carouselCaption);
-        var innerCarousel = document.getElementById("inner-carousel");
-        innerCarousel.appendChild(carouselItem);
-    });
-});
-
-_tmdb2.default.getPopularMovies().then(function (movies) {
-    movies.slice(0, 12).map(function (movie) {
-        var movieBlock = createMovieBlock(movie);
-        var popularMovies = document.getElementById("popularMovies");
-        popularMovies.appendChild(movieBlock);
-    });
-});
-
-_tmdb2.default.getUpcomingMovies().then(function (movies) {
-    movies.slice(0, 12).map(function (movie) {
-        var movieBlock = createMovieBlock(movie);
-        var upcomingMovies = document.getElementById("upcomingMovies");
-        upcomingMovies.appendChild(movieBlock);
-    });
-});
-
-/***/ }),
-
-/***/ "./wwwroot/src/js/tmdb.js":
-/*!********************************!*\
-  !*** ./wwwroot/src/js/tmdb.js ***!
-  \********************************/
+/***/ "./wwwroot/src/js/api/tmdb.js":
+/*!************************************!*\
+  !*** ./wwwroot/src/js/api/tmdb.js ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -228,6 +135,99 @@ var tmdb = function () {
 }();
 
 exports.default = tmdb;
+
+/***/ }),
+
+/***/ "./wwwroot/src/js/index.js":
+/*!*********************************!*\
+  !*** ./wwwroot/src/js/index.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _tmdb = __webpack_require__(/*! ./api/tmdb */ "./wwwroot/src/js/api/tmdb.js");
+
+var _tmdb2 = _interopRequireDefault(_tmdb);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function createMovieBlock(movie) {
+    var col = document.createElement("div");
+    col.className = "col-6 col-sm-2 mb-5";
+
+    var movieWrapper = document.createElement("div");
+    movieWrapper.className = "movieWrapper rounded";
+    var movieImage = document.createElement("img");
+    movieImage.className = "rounded";
+    movieImage.src = "https://image.tmdb.org/t/p/w185" + movie.poster_path;
+    movieWrapper.appendChild(movieImage);
+
+    var movieRating = document.createElement("div");
+    movieRating.className = "movieWrapper__rating";
+    movieRating.innerHTML = '<span class="badge badge-secondary box-shadow">' + movie.vote_average.toFixed(1) + '</span>';
+    movieWrapper.append(movieRating);
+
+    var movieDate = document.createElement("div");
+    movieDate.className = "movieWrapper__date";
+    movieDate.innerHTML = '<span class="badge badge-secondary box-shadow">' + movie.release_date + '</span>';
+    movieWrapper.append(movieDate);
+
+    var link = document.createElement("a");
+    link.href = "/movies/" + movie.id;
+    link.appendChild(movieWrapper);
+    col.appendChild(link);
+
+    return col;
+}
+
+_tmdb2.default.getNowplayingMovies().then(function (movies) {
+    movies.map(function (movie, index) {
+        var carouselItem = document.createElement("div");
+        carouselItem.classList.add("carousel-item");
+        if (index == 0) {
+            carouselItem.classList.add("active");
+        }
+        var movieImage = document.createElement("img");
+        movieImage.className = "d-block w-100";
+        movieImage.src = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
+        carouselItem.appendChild(movieImage);
+
+        var overlay = document.createElement("div");
+        overlay.className = "dark-overlay";
+        carouselItem.append(overlay);
+
+        var carouselCaption = document.createElement("div");
+        carouselCaption.className = "carousel-caption d-none d-md-block";
+        var movieTitle = document.createElement("h5");
+        movieTitle.innerHTML = movie.title;
+        var movieOverview = document.createElement("p");
+        movieOverview.innerHTML = movie.overview;
+        carouselCaption.appendChild(movieTitle);
+        carouselCaption.appendChild(movieOverview);
+        carouselItem.appendChild(carouselCaption);
+        var innerCarousel = document.getElementById("inner-carousel");
+        innerCarousel.appendChild(carouselItem);
+    });
+});
+
+_tmdb2.default.getPopularMovies().then(function (movies) {
+    movies.slice(0, 12).map(function (movie) {
+        var movieBlock = createMovieBlock(movie);
+        var popularMovies = document.getElementById("popularMovies");
+        popularMovies.appendChild(movieBlock);
+    });
+});
+
+_tmdb2.default.getUpcomingMovies().then(function (movies) {
+    movies.slice(0, 12).map(function (movie) {
+        var movieBlock = createMovieBlock(movie);
+        var upcomingMovies = document.getElementById("upcomingMovies");
+        upcomingMovies.appendChild(movieBlock);
+    });
+});
 
 /***/ })
 

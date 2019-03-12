@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <main role="main" class="pb-3">
+        <div class="row mt-5">
+            <div class="col-12 col-sm-4">
+                <div id="movie__poster" class="rounded-lg box-shadow">
+                    <img id="movie__image" class="rounded-lg box-shadow kenburns-bottom-right" />
+                    <div id="movie__rating" class="mb-4"></div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-8">
+                <div id="movie__info">
+                    <h1 id="movie__title" class="mb-1"></h1>
+                    <div id="movie__genres" class="mb-5"></div>
+                    <h3><span class='badge badge-secondary box-shadow'>Overview</span></h3>
+                    <p id="movie__overview" class="lead"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+@section Scripts {
+    <script src="~/build/details.bundle.js"></script>
+}
