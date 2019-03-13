@@ -12,7 +12,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand text-light" href="/">MoviesApp</a>
+                <a class="navbar-brand text-light" href="/">MoviesJS</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,9 +22,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="/">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="/Privacy">Privacy</a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -33,7 +30,7 @@
     @RenderBody()
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2019 - MoviesApp - <a href="/privacy">Privacy</a>
+            &copy; 2019 - MoviesApp - <a href="/">Home</a>
         </div>
     </footer>
     <environment include="Development">
@@ -41,8 +38,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
         @RenderSection("scripts", required: true)
-        <script src="http://localhost:5000/livereload.js"></script>
-        <script src="http://localhost:35729/livereload.js"></script>
     </environment>
 </body>
 </html>

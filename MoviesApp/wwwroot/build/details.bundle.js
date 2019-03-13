@@ -126,11 +126,18 @@ var tmdb = function () {
         return data;
     };
 
+    var getMovieCredits = async function getMovieCredits(id) {
+        var res = await fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?language=en-US&api_key=' + API_KEY);
+        var data = await res.json();
+        return data;
+    };
+
     return {
         getNowplayingMovies: getNowplayingMovies,
         getPopularMovies: getPopularMovies,
         getUpcomingMovies: getUpcomingMovies,
-        getMovie: getMovie
+        getMovie: getMovie,
+        getMovieCredits: getMovieCredits
     };
 }();
 
@@ -173,22 +180,47 @@ var getUrlId = function getUrlId() {
 
     var movieOverview = document.getElementById("movie__overview");
 
+    var movieDirectors = document.getElementById("movie__directors");
+
+    var movieCast = document.getElementById("movie__cast");
+
     _tmdb2.default.getMovie(id).then(function (movie) {
         movieImage.src = "https://image.tmdb.org/t/p/w300" + movie.poster_path;
 
-        movieRating.innerHTML = "<span class='badge badge-secondary box-shadow'>" + movie.vote_average.toFixed(1) + "</span>";
+        movieRating.innerHTML = "<span class='badge badge-secondary shadow-lg'>" + movie.vote_average.toFixed(1) + "</span>";
 
         movieTitle.innerHTML = movie.title + "<small class='text-muted'> (" + movie.release_date + ")</small>";
 
         movie.genres.forEach(function (genre) {
-            console.log(genre);
             var genreSpan = document.createElement("span");
-            genreSpan.className = "badge badge-secondary mr-2 box-shadow";
+            genreSpan.className = "badge badge-secondary mr-2 shadow-lg";
             genreSpan.innerHTML = genre.name;
             movieGenres.appendChild(genreSpan);
         });
 
         movieOverview.innerHTML = movie.overview;
+    });
+
+    _tmdb2.default.getMovieCredits(id).then(function (credits) {
+        var directors = credits.crew.filter(function (crew) {
+            return crew.job == "Director";
+        });
+        var cast = credits.cast.slice(0, 6);
+
+        directors.forEach(function (director, index) {
+            if (index < directors.length - 1) {
+                movieDirectors.innerHTML += director.name + ", ";
+            } else {
+                movieDirectors.innerHTML += director.name;
+            }
+        });
+
+        cast.forEach(function (c) {
+            var cast = document.createElement("div");
+            cast.className = "card text-dark border-0 shadow-lg";
+            cast.innerHTML = "<img src=\"https://image.tmdb.org/t/p/w185" + c.profile_path + "\" class=\"card-img-top\">\n                                <div class=\"card-body\">\n                                    <h6 class=\"card-title mb-1\">" + c.name + "</h5>\n                                    <p class=\"card-text\">" + c.character + "</p>\n                                </div>";
+            movieCast.appendChild(cast);
+        });
     });
 })();
 

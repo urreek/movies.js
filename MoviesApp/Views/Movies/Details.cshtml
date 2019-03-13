@@ -7,8 +7,8 @@
     <main role="main" class="pb-3">
         <div class="row mt-5">
             <div class="col-12 col-sm-4">
-                <div id="movie__poster" class="rounded-lg box-shadow">
-                    <img id="movie__image" class="rounded-lg box-shadow kenburns-bottom-right" />
+                <div id="movie__poster" class="rounded-lg shadow-lg">
+                    <img id="movie__image" class="rounded-lg shadow-lg kenburns-bottom-right" />
                     <div id="movie__rating" class="mb-4"></div>
                 </div>
             </div>
@@ -16,10 +16,20 @@
                 <div id="movie__info">
                     <h1 id="movie__title" class="mb-1"></h1>
                     <div id="movie__genres" class="mb-5"></div>
-                    <h3><span class='badge badge-secondary box-shadow'>Overview</span></h3>
+                    <h3><span class='badge badge-secondary shadow-lg'>Overview</span></h3>
                     <p id="movie__overview" class="lead"></p>
+                    <h5 class="mt-2"><span class='badge badge-secondary shadow-lg'>Directors</span></h5>
+                    <p id="movie__directors"></p>
                 </div>
             </div>
+        </div>
+        <div class="row mt-5">
+            <h3><span class='badge badge-secondary shadow-lg mb-2'>Cast</span></h3>
+            <div id="movie__cast" class="card-deck">
+            </div>
+        </div>
+        <div class="row mt-5">
+            <h3><span class='badge badge-secondary shadow-lg mb-2'>Recommendations</span></h3>
         </div>
     </main>
 </div>

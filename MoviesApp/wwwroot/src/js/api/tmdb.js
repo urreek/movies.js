@@ -25,11 +25,18 @@ const tmdb = (function () {
         return data;
     }
 
+    let getMovieCredits = async function(id) {
+        const res = await fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?language=en-US&api_key=' + API_KEY);
+        const data = await res.json();
+        return data;
+    }
+
     return {
         getNowplayingMovies: getNowplayingMovies,
         getPopularMovies: getPopularMovies,
         getUpcomingMovies: getUpcomingMovies,
-        getMovie: getMovie
+        getMovie: getMovie,
+        getMovieCredits: getMovieCredits
     }
 })();
 

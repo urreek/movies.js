@@ -5,7 +5,7 @@ function createMovieBlock(movie) {
     col.className = "col-6 col-sm-2 mb-5";
 
     let movieWrapper = document.createElement("div");
-    movieWrapper.className = "movieWrapper rounded";
+    movieWrapper.className = "movieWrapper rounded shadow-lg";
     let movieImage = document.createElement("img");
     movieImage.className = "rounded";
     movieImage.src = "https://image.tmdb.org/t/p/w185" + movie.poster_path;
@@ -13,12 +13,12 @@ function createMovieBlock(movie) {
 
     let movieRating = document.createElement("div");
     movieRating.className = "movieWrapper__rating";
-    movieRating.innerHTML = '<span class="badge badge-secondary box-shadow">' + (movie.vote_average).toFixed(1) + '</span>';
+    movieRating.innerHTML = '<span class="badge badge-secondary shadow-lg">' + (movie.vote_average).toFixed(1) + '</span>';
     movieWrapper.append(movieRating);
 
     let movieDate = document.createElement("div");
     movieDate.className = "movieWrapper__date";
-    movieDate.innerHTML = '<span class="badge badge-secondary box-shadow">' + movie.release_date + '</span>';
+    movieDate.innerHTML = '<span class="badge badge-secondary shadow-lg">' + movie.release_date + '</span>';
     movieWrapper.append(movieDate);
 
     let link = document.createElement("a");

@@ -126,11 +126,18 @@ var tmdb = function () {
         return data;
     };
 
+    var getMovieCredits = async function getMovieCredits(id) {
+        var res = await fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?language=en-US&api_key=' + API_KEY);
+        var data = await res.json();
+        return data;
+    };
+
     return {
         getNowplayingMovies: getNowplayingMovies,
         getPopularMovies: getPopularMovies,
         getUpcomingMovies: getUpcomingMovies,
-        getMovie: getMovie
+        getMovie: getMovie,
+        getMovieCredits: getMovieCredits
     };
 }();
 
@@ -159,7 +166,7 @@ function createMovieBlock(movie) {
     col.className = "col-6 col-sm-2 mb-5";
 
     var movieWrapper = document.createElement("div");
-    movieWrapper.className = "movieWrapper rounded";
+    movieWrapper.className = "movieWrapper rounded shadow-lg";
     var movieImage = document.createElement("img");
     movieImage.className = "rounded";
     movieImage.src = "https://image.tmdb.org/t/p/w185" + movie.poster_path;
@@ -167,12 +174,12 @@ function createMovieBlock(movie) {
 
     var movieRating = document.createElement("div");
     movieRating.className = "movieWrapper__rating";
-    movieRating.innerHTML = '<span class="badge badge-secondary box-shadow">' + movie.vote_average.toFixed(1) + '</span>';
+    movieRating.innerHTML = '<span class="badge badge-secondary shadow-lg">' + movie.vote_average.toFixed(1) + '</span>';
     movieWrapper.append(movieRating);
 
     var movieDate = document.createElement("div");
     movieDate.className = "movieWrapper__date";
-    movieDate.innerHTML = '<span class="badge badge-secondary box-shadow">' + movie.release_date + '</span>';
+    movieDate.innerHTML = '<span class="badge badge-secondary shadow-lg">' + movie.release_date + '</span>';
     movieWrapper.append(movieDate);
 
     var link = document.createElement("a");
