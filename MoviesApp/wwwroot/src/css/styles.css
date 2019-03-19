@@ -54,6 +54,15 @@ body {
     line-height: 60px; /* Vertically center the text there */
 }
 
+
+
+
+
+
+
+/* Custom styling
+----------------------------------------*/
+
 .navbar {
     background-color: #fd7e14;
 }
@@ -86,6 +95,11 @@ body {
 .badge-secondary {
     background-color: #dc3545;
 }
+
+
+
+
+
 
 
 /* Grid movie wrapper
@@ -121,6 +135,13 @@ body {
 /* End of Grid movie wrapper
 -------------------------------------------*/
 
+
+
+
+
+
+/* Movie detail page
+----------------------------------------------*/
 #movie__poster {
     text-align: center;
     position: relative;
@@ -138,15 +159,50 @@ body {
     font-size: 1.3rem;
 }
 
+#movie__trailers {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
 .movie__trailer {
     width: 300px;
     min-width: 300px;
 }
 
+#movie__recommendations {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
 #movie__recommendations > .card {
     width: 250px;
     min-width: 250px;
+    transition: transform ease-in-out 0.2s;
 }
+
+#movie__recommendations > .card:hover {
+    transform: scale(1.025);
+}
+
+
+#movie__recommendations a {
+    color: #343a40;
+}
+
+#movie__recommendations a:link {
+    text-decoration: none;
+    color: #343a40;
+}
+
+/* End of Movie detail page
+----------------------------------------------*/
+
+
+
+
+
+
+
 
 
 /**
@@ -157,7 +213,7 @@ body {
 
   .kenburns-bottom-right {
 	-webkit-animation: kenburns-bottom-right 5s ease-out both;
-	        animation: kenburns-bottom-right 5s ease-out both;
+            animation: kenburns-bottom-right 5s ease-out both infinite;
 }
   
 
