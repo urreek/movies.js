@@ -100,36 +100,43 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var API_KEY = "b616193ba38eec32e0603fae57f97cbe";
+var API_OPTIONS = "&language=en-US&append_to_response=videos";
 
 var tmdb = function () {
     var getNowplayingMovies = async function getNowplayingMovies() {
-        var res = await fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=' + API_KEY + '&region=US&with_release_type=2|3');
+        var res = await fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=' + API_KEY + API_OPTIONS + '&region=US&with_release_type=2|3');
         var data = await res.json();
         return data.results;
     };
 
     var getPopularMovies = async function getPopularMovies() {
-        var res = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=' + API_KEY + '&region=US&with_release_type=2|3');
+        var res = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=' + API_KEY + API_OPTIONS + '&region=US&with_release_type=2|3');
         var data = await res.json();
         return data.results;
     };
 
     var getUpcomingMovies = async function getUpcomingMovies() {
-        var res = await fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=' + API_KEY + '&region=US&with_release_type=2|3');
+        var res = await fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=' + API_KEY + API_OPTIONS + '&region=US&with_release_type=2|3');
         var data = await res.json();
         return data.results;
     };
 
     var getMovie = async function getMovie(id) {
-        var res = await fetch('https://api.themoviedb.org/3/movie/' + id + '?language=en-US&api_key=' + API_KEY);
+        var res = await fetch('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + API_KEY + API_OPTIONS);
         var data = await res.json();
         return data;
     };
 
     var getMovieCredits = async function getMovieCredits(id) {
-        var res = await fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?language=en-US&api_key=' + API_KEY);
+        var res = await fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=' + API_KEY + API_OPTIONS);
         var data = await res.json();
         return data;
+    };
+
+    var getMovieRecommendations = async function getMovieRecommendations(id) {
+        var res = await fetch('https://api.themoviedb.org/3/movie/' + id + '/recommendations?api_key=' + API_KEY + API_OPTIONS);
+        var data = await res.json();
+        return data.results;
     };
 
     return {
@@ -137,7 +144,8 @@ var tmdb = function () {
         getPopularMovies: getPopularMovies,
         getUpcomingMovies: getUpcomingMovies,
         getMovie: getMovie,
-        getMovieCredits: getMovieCredits
+        getMovieCredits: getMovieCredits,
+        getMovieRecommendations: getMovieRecommendations
     };
 }();
 
@@ -199,7 +207,7 @@ _tmdb2.default.getNowplayingMovies().then(function (movies) {
         }
         var movieImage = document.createElement("img");
         movieImage.className = "d-block w-100";
-        movieImage.src = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
+        movieImage.src = "https://image.tmdb.org/t/p/w780" + movie.backdrop_path;
         carouselItem.appendChild(movieImage);
 
         var overlay = document.createElement("div");

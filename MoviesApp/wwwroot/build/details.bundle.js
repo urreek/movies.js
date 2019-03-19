@@ -100,36 +100,43 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var API_KEY = "b616193ba38eec32e0603fae57f97cbe";
+var API_OPTIONS = "&language=en-US&append_to_response=videos";
 
 var tmdb = function () {
     var getNowplayingMovies = async function getNowplayingMovies() {
-        var res = await fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=' + API_KEY + '&region=US&with_release_type=2|3');
+        var res = await fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=' + API_KEY + API_OPTIONS + '&region=US&with_release_type=2|3');
         var data = await res.json();
         return data.results;
     };
 
     var getPopularMovies = async function getPopularMovies() {
-        var res = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=' + API_KEY + '&region=US&with_release_type=2|3');
+        var res = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=' + API_KEY + API_OPTIONS + '&region=US&with_release_type=2|3');
         var data = await res.json();
         return data.results;
     };
 
     var getUpcomingMovies = async function getUpcomingMovies() {
-        var res = await fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=' + API_KEY + '&region=US&with_release_type=2|3');
+        var res = await fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=' + API_KEY + API_OPTIONS + '&region=US&with_release_type=2|3');
         var data = await res.json();
         return data.results;
     };
 
     var getMovie = async function getMovie(id) {
-        var res = await fetch('https://api.themoviedb.org/3/movie/' + id + '?language=en-US&api_key=' + API_KEY);
+        var res = await fetch('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + API_KEY + API_OPTIONS);
         var data = await res.json();
         return data;
     };
 
     var getMovieCredits = async function getMovieCredits(id) {
-        var res = await fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?language=en-US&api_key=' + API_KEY);
+        var res = await fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=' + API_KEY + API_OPTIONS);
         var data = await res.json();
         return data;
+    };
+
+    var getMovieRecommendations = async function getMovieRecommendations(id) {
+        var res = await fetch('https://api.themoviedb.org/3/movie/' + id + '/recommendations?api_key=' + API_KEY + API_OPTIONS);
+        var data = await res.json();
+        return data.results;
     };
 
     return {
@@ -137,7 +144,8 @@ var tmdb = function () {
         getPopularMovies: getPopularMovies,
         getUpcomingMovies: getUpcomingMovies,
         getMovie: getMovie,
-        getMovieCredits: getMovieCredits
+        getMovieCredits: getMovieCredits,
+        getMovieRecommendations: getMovieRecommendations
     };
 }();
 
@@ -184,6 +192,10 @@ var getUrlId = function getUrlId() {
 
     var movieCast = document.getElementById("movie__cast");
 
+    var movieRecommendations = document.getElementById("movie__recommendations");
+
+    var movieTrailers = document.getElementById("movie__trailers");
+
     _tmdb2.default.getMovie(id).then(function (movie) {
         movieImage.src = "https://image.tmdb.org/t/p/w300" + movie.poster_path;
 
@@ -199,6 +211,14 @@ var getUrlId = function getUrlId() {
         });
 
         movieOverview.innerHTML = movie.overview;
+        movie.videos.results.filter(function (video) {
+            return video.type === "Trailer";
+        }).forEach(function (video) {
+            var trailer = document.createElement("div");
+            trailer.className = "movie__trailer m-2";
+            trailer.innerHTML = "<div class=\"embed-responsive embed-responsive-16by9 shadow-lg rounded\">\n                                    <iframe class=\"embed-responsive-item\" src=\"https://www.youtube.com/embed/" + video.key + "\" allowfullscreen></iframe>\n                                </div>";
+            movieTrailers.appendChild(trailer);
+        });
     });
 
     _tmdb2.default.getMovieCredits(id).then(function (credits) {
@@ -220,6 +240,15 @@ var getUrlId = function getUrlId() {
             cast.className = "card text-dark border-0 shadow-lg";
             cast.innerHTML = "<img src=\"https://image.tmdb.org/t/p/w185" + c.profile_path + "\" class=\"card-img-top\">\n                                <div class=\"card-body\">\n                                    <h6 class=\"card-title mb-1\">" + c.name + "</h5>\n                                    <p class=\"card-text\">" + c.character + "</p>\n                                </div>";
             movieCast.appendChild(cast);
+        });
+    });
+
+    _tmdb2.default.getMovieRecommendations(id).then(function (recommendations) {
+        recommendations.slice(0, 8).forEach(function (movie) {
+            var recommendedMovie = document.createElement("div");
+            recommendedMovie.className = "card text-dark border-0 shadow-lg m-2";
+            recommendedMovie.innerHTML = "<a href=\"/movies/" + movie.id + "\">\n                                            <img src=\"https://image.tmdb.org/t/p/w300" + movie.backdrop_path + "\" class=\"card-img-top\" alt=\"...\">\n                                            <div class=\"card-body\">\n                                                <h6 class=\"card-title\">" + movie.title + "</h6>\n                                            </div>\n                                        </a>";
+            movieRecommendations.appendChild(recommendedMovie);
         });
     });
 })();

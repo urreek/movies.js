@@ -24,6 +24,10 @@ const getUrlId = () => {
 
     let movieCast = document.getElementById("movie__cast");
 
+    let movieRecommendations = document.getElementById("movie__recommendations");
+
+    let movieTrailers = document.getElementById("movie__trailers");
+    
     tmdb.getMovie(id)
     .then(movie => {
         movieImage.src = "https://image.tmdb.org/t/p/w300" + movie.poster_path;
@@ -40,6 +44,16 @@ const getUrlId = () => {
         });
 
         movieOverview.innerHTML = movie.overview;
+        movie.videos.results.filter(video => video.type === "Trailer")
+        .forEach(video => {
+            let trailer = document.createElement("div");
+            trailer.className ="movie__trailer m-2";
+            trailer.innerHTML = `<div class="embed-responsive embed-responsive-16by9 shadow-lg rounded">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/${video.key}" allowfullscreen></iframe>
+                                </div>`;
+            movieTrailers.appendChild(trailer);
+        })
+
     });
 
     tmdb.getMovieCredits(id)
@@ -65,6 +79,21 @@ const getUrlId = () => {
                                     <p class="card-text">${c.character}</p>
                                 </div>`;
             movieCast.appendChild(cast);
+        });
+    });
+
+    tmdb.getMovieRecommendations(id)
+    .then(recommendations => {
+        recommendations.slice(0, 8).forEach(movie => {
+            let recommendedMovie = document.createElement("div");
+            recommendedMovie.className ="card text-dark border-0 shadow-lg m-2";
+            recommendedMovie.innerHTML = `<a href="/movies/${movie.id}">
+                                            <img src="https://image.tmdb.org/t/p/w300${movie.backdrop_path}" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h6 class="card-title">${movie.title}</h6>
+                                            </div>
+                                        </a>`;
+            movieRecommendations.appendChild(recommendedMovie);
         });
     });
 })();

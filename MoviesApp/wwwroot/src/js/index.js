@@ -1,4 +1,6 @@
-﻿import tmdb from './api/tmdb';
+﻿'use strict';
+
+import tmdb from './api/tmdb';
 
 function createMovieBlock(movie) {
     let col = document.createElement("div");
@@ -39,7 +41,7 @@ tmdb.getNowplayingMovies()
             }
             let movieImage = document.createElement("img");
             movieImage.className = "d-block w-100";
-            movieImage.src = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
+            movieImage.src = "https://image.tmdb.org/t/p/w780" + movie.backdrop_path;
             carouselItem.appendChild(movieImage);
 
             let overlay = document.createElement("div");
@@ -57,7 +59,6 @@ tmdb.getNowplayingMovies()
             carouselItem.appendChild(carouselCaption);
             let innerCarousel = document.getElementById("inner-carousel");
             innerCarousel.appendChild(carouselItem);
-
         });
     });
 
